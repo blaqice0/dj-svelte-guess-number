@@ -3,10 +3,16 @@
 import os
 import sys
 
+from guess_number.settings import DEBUG
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'guess_number.settings')
+    if DEBUG:
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'guess_number.development.settings'
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'guess_number.production.settings')
+        
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

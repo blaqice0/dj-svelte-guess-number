@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'guess_number.settings')
+from guess_number.settings import DEBUG
+
+if DEBUG:
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'guess_number.development.settings'
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'guess_number.production.settings')
 
 application = get_wsgi_application()
